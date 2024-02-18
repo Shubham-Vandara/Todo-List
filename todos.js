@@ -2,33 +2,51 @@ const start = document.querySelector("button");
 
 start.addEventListener("click", todoList);
 
-function todoList() {
-  let input = prompt("What you want to do?");
-  const todosList = [];
+// TODO LIST
 
+function todoList() {
+  let input = prompt("What would you like to do?");
+  // ARRAY (for store the todos)
+  const todoList = [];
+
+  // QUIT FEATURE (IF USER TYPE Q OR QUIT THEN WHILE LOOP IS FALSE) AND OUT OF THE LOOP
   while (input !== "quit" && input !== "q") {
-    if (input === "list" || input === "l") {
-      console.log("********************");
-      for (let i = 0; i < todosList.length; i++) {
-        console.log(` ${i} : ${todosList[i]}`);
-      }
-      console.log("********************");
-    } else if (input === "new" || input === "n") {
-      const newTodo = prompt("Ok, What do you want to add?");
-      todosList.push(newTodo);
-      console.log(`${newTodo} added to the list!`);
-    } else if (input === "delete" || input === "d") {
-      const index = parseInt(prompt("Ok, Enter the index number to delete!"));
-      if (index === 0 || index) {
-        const deleted = todosList.splice(index, 1);
-        console.log(`Ok, deleted ${deleted}!`);
+    // NEW FEATURE
+    if (input === "new" || input === "n") {
+      const newTodo = prompt("Ok, What would you like to Add?");
+      todoList.push(newTodo);
+      console.log(`${newTodo} added to the list.`);
+    } // lIST FEATURE
+    else if (input === "list" || input === "l") {
+      if (!todoList.length) {
+        console.log("Your list is empty, Kindly add a todo");
       } else {
-        console.log("Ohho, Unknown index! Please write valid index");
+        console.log("************");
+        for (let i = 0; i < todoList.length; i++) {
+          console.log(`${i}: ${todoList[i]}`);
+        }
+        console.log("************");
+      }
+    } // DELETE FEATURE
+    else if (input === "delete" || input === "d") {
+      const index = parseInt(prompt("Enter the index number to delete"));
+      if (!todoList.length) {
+        console.log("Your list is empty, So you can't delete our todo");
+      } // Number.isNaN(37); // false
+      else if (!Number.isNaN(index)) {
+        let removeArrayElement = todoList.splice(index, 1);
+        // SPLICE GIVE A ARRAY RETURN IF THE INDEX IS UNKNOWN THEN GIVE US UNDEFINED VALUE
+        if (removeArrayElement[0] === undefined) {
+          console.log("Unknown Index! , Kindly Put Right Index");
+        } else {
+          console.log(`Ok , Deleted ${removeArrayElement[0]}`);
+        }
+      } else {
+        console.log("Unknown Index!");
       }
     }
 
-    input = prompt("What you want to do?");
+    input = prompt("What would you like to do?");
   }
-
-  console.log("OK, YOU QUIT THE APP");
+  console.log("You Quit The App! Thanks For Using :)");
 }
